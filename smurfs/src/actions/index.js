@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCHING_SMURF_START = "FETCHING_SMURF_START";
 export const FETCHING_SMURF_SUCCESS = "FETCHING_SMURF_SUCCESS";
 export const ADD_SMURF = "ADD_SMURF";
+export const DELETE_SMURF = "DELETE_SMURF";
 
 
 export const getSmurfs = () => dispatch =>{
@@ -42,3 +43,18 @@ export const addSmurf = (smurf) => dispatch =>{
     }) 
 
 };
+
+export const deleteSmurf = (smurf) => dispatch => {
+
+    axios
+    .delete(`http://localhost:3333/smurfs/${smurf.id}`)
+    .then(res => {
+       
+        dispatch({type: DELETE_SMURF, payload: smurf});
+    }) 
+    .catch(err => {
+       
+       
+    }) ;
+
+}

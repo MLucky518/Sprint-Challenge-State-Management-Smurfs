@@ -1,4 +1,4 @@
-import { FETCHING_SMURF_START, FETCHING_SMURF_SUCCESS,ADD_SMURF } from "../actions/index";
+import { FETCHING_SMURF_START, FETCHING_SMURF_SUCCESS,ADD_SMURF,DELETE_SMURF } from "../actions/index";
 
 const initialState = {
   isFetching: false,
@@ -29,8 +29,17 @@ export const smurfReducer = (state = initialState, action) => {
               ...state,
               isFetching:false,
               error:"",
-              smurfs:[...state.smurfs,action.payload]
+              smurfs:[...state.smurfs,action.payload],
+              id:Date.now()
           };
+
+          case DELETE_SMURF:
+            return {
+                ...state,
+                smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload.id),
+                isFetching: false,
+                error: ""
+            };          
 
     default:
       console.log("nothing");
